@@ -546,8 +546,14 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 }
 .date-popover__btn:hover { color: var(--gold-core); background: var(--gold-faint); }
 
-/* 设置面板里的 date picker · popover 上抛而非下落（避免被 modal 截断） */
-.modal .date-popover { top: auto; bottom: calc(100% + 6px); }
+/* 设置面板里的 date picker · 使用 fixed 定位避免被 modal 截断 */
+.modal .date-input.is-open .date-popover {
+  position: fixed;
+  top: auto;
+  bottom: auto;
+  left: auto;
+  /* JS 会动态计算位置 */
+}
 
 /* Toggle (switch) · 设置面板用 */
 .toggle {
@@ -890,7 +896,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
     0 20px 80px rgba(0, 0, 0, 0.7),
     inset 0 1px 0 rgba(255, 255, 255, 0.06);
   animation: rise .55s var(--ease-out) both;
-  /* overflow visible 以便 date picker popover 浮出 */
+  overflow: visible; /* 让 date picker popover 能浮出 */
 }
 .modal__head {
   border-radius: var(--r-lg) var(--r-lg) 0 0;
@@ -919,6 +925,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .modal__body {
   padding: 18px 26px 6px;
   display: flex; flex-direction: column; gap: 14px;
+  overflow: visible; /* 让 date picker popover 能浮出 */
 }
 .modal__foot {
   padding: 16px 26px 22px;
