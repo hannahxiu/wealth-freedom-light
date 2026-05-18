@@ -142,20 +142,21 @@
       this.popover.hidden = false;
       this.root.classList.add('is-open');
       // 如果在 modal 内，使用 fixed 定位并计算位置
-      if (this.root.closest('.modal')) {
+          if (this.root.closest('.modal')) {
         const rect = this.trigger.getBoundingClientRect();
         const popoverHeight = 320; // 预估高度
-        const spaceBelow = window.innerHeight - rect.bottom - 10;
         const spaceAbove = rect.top - 10;
-        if (spaceBelow >= popoverHeight || spaceBelow >= spaceAbove) {
-          // 下方空间足够，向下弹出
-          this.popover.style.top = `${rect.bottom + 6}px`;
-          this.popover.style.bottom = 'auto';
-        } else {
-          // 向上弹出
+        // 始终向上弹出，避免遮挡下面的表单内容
+        if (spaceAbove >= popoverHeight) {
           this.popover.style.bottom = `${window.innerHeight - rect.top + 6}px`;
           this.popover.style.top = 'auto';
+        } else {
+          // 上方空间不够时才向下弹出
+          this.popover.style.top = `${rect.bottom + 6}px`;
+          this.popover.style.bottom = 'auto';
         }
+        this.popover.style.left = `${Math.max(10, Math.min(rect.left, window.innerWidth - 290))}px`;
+      }
         this.popover.style.left = `${Math.max(10, Math.min(rect.left, window.innerWidth - 290))}px`;
       }
       setTimeout(() => document.addEventListener('pointerdown', this._outside, true), 0);
