@@ -549,10 +549,7 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 /* 设置面板里的 date picker · 使用 fixed 定位避免被 modal 截断 */
 .modal .date-input.is-open .date-popover {
   position: fixed;
-  top: auto;
-  bottom: auto;
-  left: auto;
-  /* JS 会动态计算位置 */
+  /* JS 会动态计算 bottom/left 位置 */
 }
 
 /* Toggle (switch) · 设置面板用 */
