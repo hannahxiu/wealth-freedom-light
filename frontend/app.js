@@ -1,4 +1,4 @@
-spaceAbove >= popoverHeight/* ============================================
+popoverHeight = 320spaceAbove >= popoverHeight/* ============================================
    财富自由指南灯 · 主控
    [POS] frontend/app.js — UI 状态机 + API 网关 + 仪式编排
    [INPUT] window.LifeGrid · backend REST
@@ -141,12 +141,15 @@ spaceAbove >= popoverHeight/* ============================================
       this._render();
       this.popover.hidden = false;
       this.root.classList.add('is-open');
-            // 如果在 modal 内，使用 fixed 定位并计算位置
+              // 如果在 modal 内，使用 fixed 定位并计算位置
       if (this.root.closest('.modal')) {
         const rect = this.trigger.getBoundingClientRect();
         // 强制向上弹出，避免遮挡下面的表单内容
-        this.popover.style.bottom = `${window.innerHeight - rect.top + 6}px`;
-        this.popover.style.top = 'auto';
+        const popoverHeight = 320; // 日历预估高度
+        const top = rect.top - popoverHeight - 6; // 在输入框上方 6px
+        this.popover.style.position = 'fixed';
+        this.popover.style.top = `${Math.max(10, top)}px`;
+        this.popover.style.bottom = 'auto';
         this.popover.style.left = `${Math.max(10, Math.min(rect.left, window.innerWidth - 290))}px`;
       }
         this.popover.style.left = `${Math.max(10, Math.min(rect.left, window.innerWidth - 290))}px`;
